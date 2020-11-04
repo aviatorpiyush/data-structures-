@@ -1,0 +1,111 @@
+#include<iostream>
+using namespace std;
+
+struct node
+{
+
+    int data;
+    struct node *next;
+}*first,*second,*third;
+void createfirst(int A[],int n)
+{
+    first=nullptr;
+    int i;
+    struct node *p;
+    struct node *last;
+    first =new node;
+    first->data =A[0];
+    first->next=nullptr;
+    last=first;
+    for(int i=1;i<n;i++)
+    {
+        p=new node;
+        p->data=A[i];
+        p->next=nullptr;
+        last->next=p;
+        last=p;
+    }
+}
+void createsecond(int A[],int n)
+{
+    second=nullptr;
+    int i;
+    struct node *p;
+    struct node *last;
+    second =new node;
+    second->data =A[0];
+    second->next=nullptr;
+    last=second;
+    for(int i=1;i<n;i++)
+    {
+        p=new node;
+        p->data=A[i];
+        p->next=nullptr;
+        last->next=p;
+        last=p;
+    }
+}
+void display(struct node*r)
+{
+    while(r!=nullptr)
+    {
+        cout<<r->data<<" ";
+        r=r->next;
+
+    }
+}
+void Merge(struct node *p,struct node *q)
+{
+    third=nullptr;
+struct node *last;
+    if(p->data < q->data)
+    {
+        third=last=p;
+        p=p->next;
+        third->next=nullptr;
+    }
+    else
+    {
+        third=last=q;
+        q=q->next;
+        third->next=nullptr;
+    }
+while(p && q)
+{
+    if(p->data < q->data)
+    {
+        last->next=p;
+        last=p;
+        p=p->next;
+        last->next=nullptr;
+    }
+    else
+    {
+        last->next=q;
+        last=q;
+        q=q->next;
+        last->next=nullptr;
+    }
+}
+if(p)last->next=p;
+if(q)last->next=q;
+}
+
+int main()
+{
+    int A[]={10,20,30,40,50,60};
+    createfirst(A,6);
+    cout<<"first linked list"<<"\n";
+    display(first);
+    cout<<"\n";
+    int B[]={7,15,20,35,42,65};
+
+    createsecond(B,6);
+    cout<<"second linked list"<<"\n";
+    display(second);
+    cout<<"\n";
+    cout<<"result of merging the linked list"<<"\n";
+    Merge(first,second);
+    display(third);
+    return 0;
+}
